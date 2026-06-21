@@ -482,11 +482,7 @@ def main():
     log.info("🤖 Trading Bot v2.1 started — polling...")
     app.run_polling(allowed_updates=Update.ALL_TYPES)
 
-if __name__ == "__main__":
-    main()
-
-
-# ─── Dynamic option handlers (เพิ่มเข้ามาหลัง main) ─────────────────────────
+# ─── Dynamic option handlers ────────────────────────────────────────────────
 
 async def cmd_add_strategy(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
@@ -599,3 +595,10 @@ async def cmd_list_options(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"  `/add_asset ชื่อ` — เพิ่ม asset"
     )
     await update.message.reply_text(text, parse_mode="Markdown")
+
+# ─── Entry point ──────────────────────────────────────────────────────────────
+# ต้องอยู่ท้ายสุดของไฟล์เสมอ เพราะ main() อ้างถึง cmd_add_strategy, cmd_add_asset,
+# และ cmd_list_options ซึ่ง define อยู่ด้านบนนี้ — ถ้า main() ถูกเรียกก่อนบรรทัดเหล่านั้น
+# จะได้ NameError ทันที (นี่คือสาเหตุของ bug เดิม)
+if __name__ == "__main__":
+    main()
