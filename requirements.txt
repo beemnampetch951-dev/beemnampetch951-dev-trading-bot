@@ -1,4 +1,4 @@
-python-telegram-bot==20.7
+python-telegram-bot==21.5
 anthropic==0.23.1
 notion-client==2.2.1
 python-dotenv==1.0.1
